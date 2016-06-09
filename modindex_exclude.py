@@ -20,6 +20,7 @@ org_PythonModuleIndex_generate = None
 org_PyObject_add_target_and_index = None
 org_PyModule_run = None
 
+EXCLUDES = {}
 
 def PythonModuleIndex_generate(self, docnames=None):
     docnames = []
@@ -48,10 +49,12 @@ def PyObject_add_target_and_index(self, name_cls, sig, signode):
 
 
 def PyModule_run(self):
+    env = self.state.document.settings.env
     modname = self.arguments[0].strip()
-    excl = self.state.document.settings.env.config['modindex_exclude']
+    excl = env.config['modindex_exclude']
     if modname in excl:
         self.options['noindex'] = True
+        EXCLUDES.setdefault(modname, []).append(env.docname)
     return org_PyModule_run(self)
 
 
