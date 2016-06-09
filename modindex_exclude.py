@@ -16,12 +16,13 @@
 import sphinx
 
 
-org_PythonModuleIndex_generate = None
+#org_PythonModuleIndex_generate = None
 org_PyObject_add_target_and_index = None
 org_PyModule_run = None
 
 EXCLUDES = {}
 
+# No longer used, PyModule_run() monkey-patch does all the job
 def PythonModuleIndex_generate(self, docnames=None):
     docnames = []
     excludes = self.domain.env.config['modindex_exclude']
@@ -61,9 +62,9 @@ def PyModule_run(self):
 def setup(app):
     app.add_config_value('modindex_exclude', [], 'html')
 
-    global org_PythonModuleIndex_generate
-    org_PythonModuleIndex_generate = sphinx.domains.python.PythonModuleIndex.generate
-    sphinx.domains.python.PythonModuleIndex.generate = PythonModuleIndex_generate
+#    global org_PythonModuleIndex_generate
+#    org_PythonModuleIndex_generate = sphinx.domains.python.PythonModuleIndex.generate
+#    sphinx.domains.python.PythonModuleIndex.generate = PythonModuleIndex_generate
 
     global org_PyObject_add_target_and_index
     org_PyObject_add_target_and_index = sphinx.domains.python.PyObject.add_target_and_index
