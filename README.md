@@ -86,6 +86,28 @@ you a chance to check that document exclusions are indeed right
 for a particular configuration you build (and not that you forgot
 to add something to a toctree).
 
+Summary
+-------
+
+Based on the above, sphinx_selective_exclude offers extension to let
+you:
+
+* Make "only::" directive work in an expected, intuitive manner, using
+  `eager_only` extension.
+* However, if you apply only:: to toctree::, excluded documents will
+  still be available via full-text search, so you need to use
+  `search_auto_exclude` for that to work as expected.
+* Similar to search, indexes may also require special treatment, hence
+  there's the `modindex_exclude` extension.
+
+Most likely, you will want to use all 3 extensions together - if you
+really want build subsets of docimentation covering sufficiently different
+configurations from a single doctree. However, if one of them is enough
+to cover your usecase, that's OK to (and why they were separated into
+3 extensions, to follow KISS and "least surprise" principles and to
+not make people deal with things they aren't interested in). In this case,
+however remember there're other extensions, if you later hit a usecase
+when they're needed.
 
 Usage
 -----
@@ -102,6 +124,7 @@ likely already have some standard Sphinx extensions enabled):
     extensions = [
         ...
         'sphinx_selective_exclude.eager_only',
+        'sphinx_selective_exclude.search_auto_exclude',
         'sphinx_selective_exclude.modindex_exclude',
     ]
 
