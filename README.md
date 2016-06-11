@@ -69,6 +69,24 @@ extension which appear to have issued with "latexpdf" builder,
 `modindex_exclude` is useful for PDF, and allows to get cleaner
 index for PDF, just the same as for HTML.
 
+search_auto_exclude
+-------------------
+
+Even if you exclude soem documents from toctree:: using only::
+directive, they will be indexed for full-text search, so user may
+find them and get confused. This plugin follows very simple idea
+that if you didn't include some documents in the toctree, then
+you didn't want them to be accessible (e.g. for a particular
+configuration), and so will make sure they aren't indexed either.
+
+This extension depends on `eager_only` and won't work without it.
+Note that Sphinx will issue warnings, as usual, for any documents
+not included in a toctree. This is considered a feature, and gives
+you a chance to check that document exclusions are indeed right
+for a particular configuration you build (and not that you forgot
+to add something to a toctree).
+
+
 Usage
 -----
 
