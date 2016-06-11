@@ -36,15 +36,9 @@ process "only" directive as soon as possible during parsing phase.
 This approach has some drawbacks, like producing warnings like
 "WARNING: document isn't included in any toctree" if "only" is used
 to shape up a toctree, or the fact that changing a documentation
-builder (html/latex/etc.) may require complete rebuild of documentation
-(if you use "only" conditional on a builder type). But these are minor
-issues comparing to completely broken way "only" works in upstream
-Sphinx.
-
-Warning: `eager_only` works better with "html" output type. It may not
-work well with "latexpdf" output, leading to skippage of various types
-of content (this is likely issue with "latexpdf" builder, which can't
-handle "only" directives in arbitrary places).
+builder (html/latex/etc.) will almost certainly require complete
+rebuild of documentation. But these are relatively minor issues
+comparing to completely broken way "only" works in upstream Sphinx.
 
 modindex_exclude
 ----------------
@@ -112,7 +106,7 @@ when they're needed.
 Usage
 -----
 
-To use these extension, add https://github.com/pfalcon/sphinx_selective_exclude
+To use these extensions, add https://github.com/pfalcon/sphinx_selective_exclude
 as a git submodule to your project, in documentation folder (where
 Sphinx conf.py is located). Alternatively, commit sphinx_selective_exclude
 directory instead of making it a submodule (you will need to pick up
@@ -128,10 +122,17 @@ likely already have some standard Sphinx extensions enabled):
         'sphinx_selective_exclude.modindex_exclude',
     ]
 
-You may enable both extensions, or one by one. As mentioned above, you
-probably don't want to enable `eager_only` if you generate PDF.
+As discussed above, you may enable all extensions, or one by one.
 
-These extensions are currently tested to work with Sphinx 1.2.2 and 1.4.2
-(latexpdf builder is broken for me in 1.4.2 pristine - it generates PDF
-with some sections skipped; enabling `eager_only` in 1.2.2 leads to a
-similar behavior).
+Please note that to make sure these extensions work well and avoid producing
+output docs with artifacts, it is IMPERATIVE to remove cached doctree if
+you rebuild documentation with another builder (i.e. with different output
+format). Also, to stay on safe side, it's recommended to remove old doctree
+anyway before generating production-ready documentation for publishing. To
+do that, run something like:
+
+    rm -rf _build/doctrees/
+
+A typical artificat when not following these simple rules is that content
+of some sections may be missing. If you face anything like that, just
+remember what's written above and remove cached doctrees.
