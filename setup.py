@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 PROJECT_URL = 'https://github.com/pfalcon/sphinx_selective_exclude'
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 
 setup(
     name='sphinx_selective_exclude',
