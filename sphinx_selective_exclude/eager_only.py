@@ -24,6 +24,7 @@ import sphinx
 from docutils.parsers.rst import directives
 from sphinx.util import logging
 
+
 class EagerOnly(sphinx.directives.other.Only):
 
     def run(self, *args):
@@ -38,6 +39,7 @@ class EagerOnly(sphinx.directives.other.Only):
             logger = logging.getLogger(__name__)
             logger.warning(('exception while evaluating only directive expression: %s'), err,
                             location=(self.env.docname, self.lineno))
+            raise
         # Otherwise, do the usual processing
         nodes = super(EagerOnly, self).run()
         if len(nodes) == 1:
