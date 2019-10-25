@@ -37,7 +37,7 @@ class EagerOnly(sphinx.directives.other.Only):
                 return []
         except Exception as err:
             logger = logging.getLogger(__name__)
-            logger.warning(('exception while evaluating only directive expression: %s'), err,
+            logger.warning("exception while evaluating 'only' directive expression: %s", err,
                             location=(self.env.docname, self.lineno))
             raise
         # Otherwise, do the usual processing
