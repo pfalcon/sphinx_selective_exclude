@@ -43,3 +43,5 @@ class EagerOnly(sphinx.directives.other.Only):
 
 def setup(app):
     directives.register_directive('only', EagerOnly)
+
+    return {'parallel_read_safe': True, 'parallel_write_safe': True, 'version': '1.0.2'}

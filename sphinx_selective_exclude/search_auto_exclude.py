@@ -32,3 +32,5 @@ def setup(app):
     global org_StandaloneHTMLBuilder_index_page
     org_StandaloneHTMLBuilder_index_page = sphinx.builders.html.StandaloneHTMLBuilder.index_page
     sphinx.builders.html.StandaloneHTMLBuilder.index_page = StandaloneHTMLBuilder_index_page
+
+    return {'parallel_read_safe': True, 'parallel_write_safe': True, 'version': '1.0.2'}

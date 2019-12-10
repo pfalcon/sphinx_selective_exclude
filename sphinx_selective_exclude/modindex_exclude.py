@@ -73,3 +73,5 @@ def setup(app):
     global org_PyModule_run
     org_PyModule_run = sphinx.domains.python.PyModule.run
     sphinx.domains.python.PyModule.run = PyModule_run
+
+    return {'parallel_read_safe': True, 'parallel_write_safe': True, 'version': '1.0.2'}
