@@ -13,6 +13,7 @@ setup(
     author_email='pfalcon@users.sourceforge.net',
     description='Sphinx eager ".. only::" directive and other selective rendition extensions',
     long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
     zip_safe=False,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
