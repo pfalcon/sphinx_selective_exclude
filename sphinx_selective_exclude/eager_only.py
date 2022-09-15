@@ -25,6 +25,9 @@ from docutils.parsers.rst import directives
 from sphinx.util import logging
 
 
+logger = sphinx.util.logging.getLogger(__name__)
+
+
 class EagerOnly(sphinx.directives.other.Only):
 
     def run(self, *args):
