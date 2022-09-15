@@ -22,6 +22,10 @@
 #
 import sphinx
 from docutils.parsers.rst import directives
+from sphinx.util import logging
+
+
+logger = sphinx.util.logging.getLogger(__name__)
 
 
 class EagerOnly(sphinx.directives.other.Only):
@@ -31,9 +35,13 @@ class EagerOnly(sphinx.directives.other.Only):
         env = self.state.document.settings.env
         env.app.builder.tags.add('TRUE')
         #print(repr(self.arguments[0]))
-        if not env.app.builder.tags.eval_condition(self.arguments[0]):
-            return []
-
+        try:
+            if not env.app.builder.tags.eval_condition(self.arguments[0]):
+                return []
+        except Exception as err:
+            logger.critical("Exception while evaluating 'only' directive expression: %r", err,
+                            location=(self.env.docname, self.lineno))
+            raise err
         # Otherwise, do the usual processing
         nodes = super(EagerOnly, self).run()
         if len(nodes) == 1:
